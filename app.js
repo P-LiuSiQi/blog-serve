@@ -1,4 +1,5 @@
 const Koa = require('koa')
+const cors = require('koa2-cors')
 
 // 这是一些常量的配置文件
 const config = require('./config')
@@ -14,6 +15,8 @@ mongoos.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true }, 
     console.log('Connecting database successfully')
   }
 })
+
+app.use(cors())
 
 const example_router = require('./routes/api/example_router')
 

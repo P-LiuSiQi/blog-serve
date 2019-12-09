@@ -4,7 +4,6 @@ const Example_col = require('./../models/example')
 // get请求返回所有数据
 const getExample = async (ctx, next) => {
   const req = ctx.request.body
-
   const examples = await Example_col.find({}, { _id: 0 })
 
   ctx.status = 200
@@ -20,19 +19,18 @@ const getExample = async (ctx, next) => {
 // post带一个msg参数，并插入数据库
 const postExample = async (ctx, next) => {
   const req = ctx.request.body
-
   ctx.status = 200
-  if (!req.msg || typeof req.msg != 'string') {
+  if (!req || typeof req != 'string') {
     ctx.status = 401
     ctx.body = {
       msg: 'post request!!',
-      desc: `parameter error! ! msg: ${req.msg}`,
+      desc: `parameter error! ! msg: ${req}`,
       data: req
     }
     return
   }
 
-  const result = await Example_col.create({msg: req.msg})
+  const result = await Example_col.create({msg: req})
 
   ctx.body = {
     msg: 'post request!!',
